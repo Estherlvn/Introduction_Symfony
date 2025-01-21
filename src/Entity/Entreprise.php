@@ -136,4 +136,9 @@ class Entreprise
 
         return $this;
     }
+
+    public function __toString()
+    {
+        return $this->raisonSociale."(".$this->cp." ".$this->ville.")";
+    }
 }
