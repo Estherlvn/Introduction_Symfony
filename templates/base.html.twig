@@ -12,6 +12,13 @@
         {% endblock %}
     </head>
     <body>
+        <nav>
+            <ul> <!-- pour le path, utiliser le 'name' du Controller -->
+                <li><a href="{{ path('app_entreprise') }}">Liste des entreprises</a></li>
+                <li><a href="{{ path('app_employe') }}">Liste des employés</a></li>
+                
+            </ul>
+        </nav>
         {% block body %}{% endblock %}
     </body>
 </html>
