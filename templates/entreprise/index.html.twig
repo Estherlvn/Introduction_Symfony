@@ -6,6 +6,11 @@
 
 {% block body %}
     <h1>Liste des entreprises</h1>
-             
+
+    {% for entreprise in entreprises %}
+        {{ entreprise.raisonSociale}} <br>
+    {% endfor %}
+            
+
 {% endblock %}
  
