@@ -10,8 +10,9 @@
     <h2> {{ employe }} </h2>
     <p>
         Entreprise : <a href="{{ path('show_entreprise', {'id':employe.entreprise.id}) }}">{{ employe.entreprise }} </a> <br>
-        Ville : {{ employe.ville }} <br>
+        Ville : {% if employe.ville %} {{ employe.ville }} {% else %} Ville non renseignée {% endif %} <br>
         Date de naissance : {{ employe.dateNaissance | date("d-m-Y") }} <br>
+        Age : {{ employe.age }} ans <br>
         Date d'embauche : {{ employe.dateEmbauche | date("d-m-Y") }}
     </p>
 

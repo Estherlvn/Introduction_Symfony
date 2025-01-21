@@ -1,12 +1,12 @@
 {% extends 'base.html.twig' %} 
 
 
-{% block title %}Détail d'une entreprises{% endblock %}
+{% block title %}Détail d'une entreprise{% endblock %}
 
 
 {% block body %}
 
-    <h1>Détail d'une entreprises</h1>
+    <h1>Détail d'une entreprise</h1>
 
     <h2> {{ entreprise }} </h2>
     <p>
@@ -19,10 +19,19 @@
     <h3>Liste des employés</h3>
 
     {% if entreprise.employes | length > 0 %}
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>Employe</th>
+                </tr>
+            </thead>
+            <tbody>
+            {% for employe in entreprise.employes %} {#}appeller l'entité "employe" dans la collection "employes"{#}
+            <tr><td><a href="{{ path('show_employe', {'id':employe.id}) }}"> {{ employe }}</a> </tr></td><br>
+            {% endfor %}
 
-    {% for employe in entreprise.employes %} {#}appeller l'entité "employe" dans la collection "employes"{#}
-       <a href="{{ path('show_employe', {'id':employe.id}) }}"> {{ employe }}</a> <br>
-    {% endfor %}
+             </tbody>
+        </table>
 
     {% else %}
         <p>Aucun employé trouvé dans cette entreprise.</p>
