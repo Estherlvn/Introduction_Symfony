@@ -7,7 +7,7 @@
 
     {% for employe in employes %}
     
-    {{ employe }} ({{employe.entreprise.raisonSociale}}) <br>
+    <a href="{{ path('show_employe', {'id':employe.id}) }}">{{ employe }}</a> ({{employe.entreprise.raisonSociale}}) <br>
         
     {% endfor %}
 

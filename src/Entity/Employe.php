@@ -30,6 +30,9 @@ class Employe
     #[ORM\JoinColumn(nullable: false)]
     private ?Entreprise $entreprise = null;
 
+    #[ORM\Column(length: 50, nullable: true)]
+    private ?string $ville = null;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -98,5 +101,17 @@ class Employe
     public function __toString()
     {
         return $this->prenom. " ".$this->nom;   
+    }
+
+    public function getVille(): ?string
+    {
+        return $this->ville;
+    }
+
+    public function setVille(?string $ville): static
+    {
+        $this->ville = $ville;
+
+        return $this;
     }
 }
