@@ -39,12 +39,18 @@ CREATE TABLE IF NOT EXISTS `employe` (
   `prenom` varchar(50) COLLATE utf8mb4_unicode_ci NOT NULL,
   `date_naissance` datetime DEFAULT NULL,
   `date_embauche` datetime NOT NULL,
+  `ville` varchar(50) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `IDX_F804D3B9A4AEAFEA` (`entreprise_id`),
   CONSTRAINT `FK_F804D3B9A4AEAFEA` FOREIGN KEY (`entreprise_id`) REFERENCES `entreprise` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- Listage des données de la table sfentreprisedemo.employe : ~4 rows (environ)
+INSERT INTO `employe` (`id`, `entreprise_id`, `nom`, `prenom`, `date_naissance`, `date_embauche`, `ville`) VALUES
+	(1, 1, 'MURMANN', 'Mickael', '1985-04-21 10:53:50', '2010-03-30 10:53:59', NULL),
+	(2, 1, 'SMAIL', 'Stephane', '1982-02-21 11:02:11', '2019-07-25 11:02:25', 'MULHOUSE'),
+	(3, 1, 'MATHIEU', 'Quentin', '1997-08-21 11:03:11', '2022-01-21 11:03:22', NULL),
+	(4, 2, 'ANDRES', 'Mathilde', '1994-11-21 11:05:15', '2015-04-14 11:05:24', NULL);
 
 -- Listage de la structure de table sfentreprisedemo. entreprise
 CREATE TABLE IF NOT EXISTS `entreprise` (
@@ -55,9 +61,13 @@ CREATE TABLE IF NOT EXISTS `entreprise` (
   `cp` varchar(20) COLLATE utf8mb4_unicode_ci NOT NULL,
   `ville` varchar(50) COLLATE utf8mb4_unicode_ci NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- Listage des données de la table sfentreprisedemo.entreprise : ~4 rows (environ)
+INSERT INTO `entreprise` (`id`, `raison_sociale`, `date_creation`, `adresse`, `cp`, `ville`) VALUES
+	(1, 'ELAN FORMATION', '1993-07-10 11:31:03', '14 rue du Rhône', '67100', 'STRASBOURG'),
+	(2, 'COACTIS', '2015-07-10 11:31:27', '10 rue des Charmilles', '67200', 'STRASBOURG'),
+	(3, 'ENTREPRISE', '2008-01-21 08:46:51', '1 rue des primeurs', '68000', 'COLMAR');
 
 -- Listage de la structure de table sfentreprisedemo. messenger_messages
 CREATE TABLE IF NOT EXISTS `messenger_messages` (
