@@ -27,22 +27,26 @@ final class EmployeController extends AbstractController
     }
 
     #[Route('/employe/new', name: 'new_employe')]
-    public function new(Request $request, EntityManagerInterface $entityManager): Response
+    #[Route('/employe/{id}/edit', name: 'edit_employe')]
+    public function new_edit(Employe $employe = null, Request $request, EntityManagerInterface $entityManager): Response
     {
-    $employe = new Employe();
 
-    $form = $this->createForm(EmployeType::class, $employe);
+        if(!$employe) { 
+             $employe = new Employe();
+        }
 
-    // soumisson du formulaire et insertion en bdd
-    $form->handleRequest($request);
+        $form = $this->createForm(EmployeType::class, $employe);
 
-    if ($form->isSubmitted() && $form->isValid()) {
+        // soumisson du formulaire et insertion en bdd
+        $form->handleRequest($request);
 
-        $employe = $form->getData();
+        if ($form->isSubmitted() && $form->isValid()) {
 
-        $entityManager->persist($employe); // persist (= prepare, en PDO)
-        // actually executes the queries (INSERT query)
-        $entityManager->flush(); // flush: envoyer en  bdd (= execute, en PDO)
+            $employe = $form->getData();
+
+            $entityManager->persist($employe); // persist (= prepare, en PDO)
+            // actually executes the queries (INSERT query)
+            $entityManager->flush(); // flush: envoyer en  bdd (= execute, en PDO)
 
 
     return $this->redirectToRoute('app_employe');
@@ -54,6 +58,16 @@ final class EmployeController extends AbstractController
 }
 
     
+    #[Route('/employe/{id}/delete', name: 'delete_employe')]
+    public function delete(Employe $employe,  EntityManagerInterface $entityManager)
+    {
+        $entityManager->remove($employe);
+        $entityManager->flush();
+        
+        return $this->redirectToRoute('app_employe');
+    }
+
+
     #[Route('/employe/{id}', name: 'show_employe')]
     public function show(Employe $employe): Response
     {
