@@ -49,6 +49,16 @@ symfony serve -d
 ```
 L'application sera accessible sur [http://127.0.0.1:8000](http://127.0.0.1:8000)
 
+## ✨ Fonctionnalités
+- **Gestion des entreprises** :
+  - Création, modification, suppression
+  - Affichage des entreprises et de leurs employés associés
+- **Gestion des employés** :
+  - Ajout, modification, suppression
+  - Filtrage par entreprise
+- **Utilisation de Twig** pour l'affichage dynamique
+- **DQL** pour l'interrogation de la base de données
+
 ## 📂 Structure du Projet
 ```
 ├── src/
@@ -63,15 +73,63 @@ L'application sera accessible sur [http://127.0.0.1:8000](http://127.0.0.1:8000)
 └── ...
 ```
 
-## ✨ Fonctionnalités
-- **Gestion des entreprises** :
-  - Création, modification, suppression
-  - Affichage des entreprises et de leurs employés associés
-- **Gestion des employés** :
-  - Ajout, modification, suppression
-  - Filtrage par entreprise
-- **Utilisation de Twig** pour l'affichage dynamique
-- **DQL** pour l'interrogation de la base de données
+## 🏗 Étapes de Création
+### 1. Création des entités
+```bash
+symfony console make:entity
+```
+- Suivez les instructions pour définir les champs et les relations entre les entités.
+- Exemple de relation OneToMany :
+```php
+// Dans src/Entity/Entreprise.php
+/**
+ * @OneToMany(targetEntity=Employe::class, mappedBy="entreprise", orphanRemoval=true)
+ */
+private $employes;
+```
+
+### 2. Génération des migrations et mise à jour de la base de données
+```bash
+symfony console make:migration
+symfony console doctrine:migrations:migrate
+```
+
+### 3. Création des contrôleurs
+```bash
+symfony console make:controller EntrepriseController
+symfony console make:controller EmployeController
+```
+- Ces commandes créent les fichiers de contrôleurs avec des actions par défaut.
+
+### 4. Création des formulaires
+```bash
+symfony console make:form
+```
+- Exemple :
+```bash
+symfony console make:form EntrepriseType
+symfony console make:form EmployeType
+```
+
+### 5. Affichage des données avec Twig
+Dans `templates/entreprise/index.html.twig` :
+```twig
+{% for entreprise in entreprises %}
+    {{ entreprise.nom }} <br>
+{% endfor %}
+```
+
+### 6. Ajout d'une méthode dans un contrôleur pour afficher la liste des entreprises
+Dans `src/Controller/EntrepriseController.php` :
+```php
+public function index(EntrepriseRepository $entrepriseRepository): Response
+{
+    $entreprises = $entrepriseRepository->findAll();
+    return $this->render('entreprise/index.html.twig', [
+        'entreprises' => $entreprises,
+    ]);
+}
+```
 
 ## 📖 Ressources utiles
 - [Documentation Symfony](https://symfony.com/doc/current/index.html)
@@ -79,5 +137,5 @@ L'application sera accessible sur [http://127.0.0.1:8000](http://127.0.0.1:8000)
 - [Twig](https://twig.symfony.com/)
 
 ---
-**Auteur** : [Estherlvn] 
+**Auteur** : [Estherlvn]
 
